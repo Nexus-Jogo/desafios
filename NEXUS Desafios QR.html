@@ -1,0 +1,315 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>NEXUS Desafios QR</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: uma coluna de celular, uma pergunta por tela, tudo no tom do tabuleiro NEXUS (azul-noite + luzes por área). */
+:root{
+  --bg:#0E1230; --card:#171C45; --line:#2B3270; --fg:#F2F4FF; --muted:#A9B0DC;
+  --accent:#8B5CF6; --accent-ink:#FFFFFF;
+  --good:#2DD4BF; --warn:#FBBF24; --bad:#FB7185;
+  --a1:#2DD4BF; --a2:#3B82F6; --a3:#EC4899; --a4:#FBBF24; --a5:#8B5CF6;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif; --body:"DM Sans",system-ui,sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#F6F7FB; --card:#FFFFFF; --line:#D5DAF0; --fg:#1E2347; --muted:#5B6285;
+  --accent:#6D3FE0; --good:#0B8F7E; --warn:#A97800; --bad:#D6304A;
+  --a1:#0FA896; --a2:#2F6FE0; --a3:#D43A8C; --a4:#A97800; --a5:#6D3FE0; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#F6F7FB; --card:#FFFFFF; --line:#D5DAF0; --fg:#1E2347; --muted:#5B6285;
+  --accent:#6D3FE0; --good:#0B8F7E; --warn:#A97800; --bad:#D6304A;
+  --a1:#0FA896; --a2:#2F6FE0; --a3:#D43A8C; --a4:#A97800; --a5:#6D3FE0; color-scheme:light}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5;
+  padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.logo{font-family:var(--disp);font-weight:800;letter-spacing:.06em;font-size:15px;color:var(--accent)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,8vw,40px);line-height:1.08;margin:0;text-wrap:balance}
+h2{font-family:var(--disp);font-weight:600;font-size:22px;line-height:1.25;margin:0;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c,var(--accent))}
+.tag::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c,var(--accent));box-shadow:0 0 12px var(--c,var(--accent))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.steps{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+button,.btn{font:inherit;cursor:pointer}
+.primary{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:16px 20px;font-weight:700;font-size:18px;width:100%}
+.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-weight:500}
+button:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{text-align:left;background:var(--card);color:var(--fg);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;min-height:52px}
+.opt:hover:not(:disabled){border-color:var(--c,var(--accent))}
+.opt.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 18%,var(--card))}
+.opt.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,var(--card))}
+.opt:disabled{cursor:default}
+.dots{display:flex;gap:6px}
+.dots i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.dots i.on{background:var(--c,var(--accent))}
+.dots i.done{background:var(--good)}
+.dots i.miss{background:var(--bad)}
+.post{border:1px dashed var(--line);border-radius:12px;padding:14px;font-size:16px;background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.fb{border-left:4px solid var(--good);padding:10px 14px;background:var(--card);border-radius:0 10px 10px 0}
+.fb.no{border-color:var(--bad)}
+.fb b{display:block;margin-bottom:2px}
+.big{font-family:var(--disp);font-weight:800;font-size:clamp(56px,20vw,96px);line-height:1;color:var(--c,var(--accent));text-shadow:0 0 28px color-mix(in srgb,var(--c,var(--accent)) 55%,transparent)}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.res div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;display:flex;justify-content:space-between;gap:8px}
+.up{color:var(--good);font-weight:700}.down{color:var(--bad);font-weight:700}
+.menu{display:grid;gap:10px}
+.menu a{display:block;text-decoration:none;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.menu a b{color:var(--c)}
+.small{font-size:14px}
+@media (prefers-reduced-motion:no-preference){.screen{animation:in .25s ease-out}@keyframes in{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+</style>
+
+<main id="app"></main>
+
+<script>
+/* ---------- conteúdo ---------- */
+var CH = {
+ 1:{c:"var(--a1)",tag:"INVESTIGAR · QR 1",title:"Relâmpago: fato, mito ou fake?",
+  intro:"5 frases. Para cada uma, decida: Fato, Mito ou Fake. Você ganha casas pelos acertos.",type:"quiz",n:5,
+  talk:"Qual frase te surpreendeu? Alguém já passou adiante algo assim sem checar?",
+  pool:[
+   ["Dormir pouco piora o humor e a concentração.","Fato","O sono ajuda o cérebro a regular emoções."],
+   ["Chorar é sinal de fraqueza.","Mito","Chorar é um jeito natural de aliviar emoções fortes."],
+   ["Print sem autor e sem data: “Compartilhe antes que apaguem!”","Fake","Pressa, sem fonte e sem data: três sinais de alerta."],
+   ["Pedir ajuda faz parte de cuidar da saúde mental.","Fato","Pedir ajuda é uma habilidade, não um defeito."],
+   ["Notícia compartilhada por muita gente é sempre verdadeira.","Mito","Fake news se espalham rápido. Quantidade de compartilhamentos não prova nada."],
+   ["Mensagem: “Se alguém mandar este emoji, sua conta é hackeada. Avise 10 contatos!”","Fake","Corrente com medo e pedido de repasse. Confira em fontes confiáveis."],
+   ["Ansiedade é frescura, é só se esforçar.","Mito","Ansiedade é uma resposta real do corpo, e pode ser cuidada com ajuda."],
+   ["Vídeo: “Médico revela chá que cura ansiedade em 1 dia”, sem nome do médico.","Fake","Sem fonte e com promessa boa demais."],
+   ["Divulgar foto íntima de alguém sem permissão é crime.","Fato","No Brasil, divulgar nudez ou cena de sexo sem consentimento é crime."],
+   ["Quem sofre bullying deve ficar quieto para parar.","Mito","Contar a um adulto de confiança é o caminho. O silêncio protege quem agride."],
+   ["Discordar dos adultos faz parte de crescer.","Fato","Na adolescência, questionar ajuda a construir identidade e autonomia."],
+   ["Falar com alguém de confiança sobre o que sentimos alivia o sofrimento.","Fato","Colocar em palavras organiza as emoções."],
+   ["Beber água e se alimentar bem ajuda o corpo e o humor.","Fato","Corpo e emoções andam juntos: cuidar de um ajuda o outro."],
+   ["Quem tem muitos seguidores é mais feliz.","Mito","Seguidores não medem felicidade. Comparar a vida real com o feed costuma gerar frustração."],
+   ["Mensagem: “Ganhe R$ 500 clicando neste link, só hoje!”","Fake","Promessa boa demais, pressa e link suspeito: golpe comum."],
+   ["Todo mundo que usa muito o celular tem vício.","Mito","Uso intenso nem sempre é dependência. O que importa é se está atrapalhando sono, estudo e relações."],
+   ["Sentir vergonha de falar sobre um problema é comum, e ainda assim dá para pedir ajuda.","Fato","Muita gente sente vergonha. Dar o primeiro passo com alguém de confiança ajuda."],
+   ["Print de conversa sem nome e sem data: “professor ofendeu aluna”, repassado em todos os grupos.","Fake","Sem origem, sem data e só em grupos. Não dá para confiar até confirmar."],
+   ["Fazer atividade física melhora o humor e reduz o estresse.","Fato","O movimento ajuda o corpo a regular as emoções."],
+   ["Falar sobre suicídio com alguém que está mal dá ideia a ele.","Mito","Escutar com cuidado ajuda. Se alguém está mal, chame um adulto e o CVV (188)."],
+   ["Quem sofre ciberbullying pode guardar prints e denunciar.","Fato","Guardar provas e contar a um adulto ou à SaferNet ajuda a parar."]
+  ],opts:["Fato","Mito","Fake"]},
+ 2:{c:"var(--a2)",tag:"INVESTIGAR · QR 2",title:"Detetive de pistas",
+  intro:"Veja a publicação e escolha a pista do PARE e CHEQUE que mais entrega o problema. 4 casos.",type:"quiz",n:4,
+  talk:"Qual pista você costuma esquecer de usar? Qual você usaria primeiro na vida real?",
+  pool:[
+   ["“Foto de enchente de HOJE!” A mesma imagem já circulava em 2019.","Data","Foto antiga usada para falar de outro fato."],
+   ["Perfil sem nome, sem foto e criado semana passada diz que uma vacina causa um problema grave.","Fonte","Quem publicou? Perfil anônimo e sem histórico é sinal de alerta."],
+   ["Só circula em correntes de grupo. Nenhum jornal ou órgão de saúde confirmou.","Confirmação","Se fontes confiáveis não falam disso, desconfie."],
+   ["Vídeo de um famoso “pedindo dinheiro”, com voz robótica e boca fora de sincronia.","Imagem","Pode ser vídeo editado ou feito por inteligência artificial."],
+   ["“Se você ama sua família, compartilhe! Vai se arrepender se ignorar.”","Emoção","Feito para dar medo e culpa, para você passar adiante sem pensar."],
+   ["“Vídeo mostra tubarão na praia de hoje!” A cena é de um filme.","Imagem","Imagem tirada de outro contexto. Busque a origem do vídeo."],
+   ["“Remédio milagroso emagrece 10 kg em 1 semana”, vendido por um perfil sem endereço nem nome.","Fonte","Quem está vendendo? Sem identificação, desconfie."],
+   ["“Governo vai cobrar taxa de quem usa celular!” Nenhum site de notícia fala disso.","Confirmação","Nenhuma fonte confiável confirma."],
+   ["Notícia de 2018 sobre uma greve circulando como se fosse de agora.","Data","Notícia antiga apresentada como nova."],
+   ["“Compartilhe agora ou sua conta será apagada!!!”","Emoção","Ameaça e pressa são feitas para você agir sem pensar."],
+   ["Perfil criado hoje, com foto roubada, pede Pix para ajudar uma criança doente.","Fonte","Perfil novo, sem histórico, pedindo dinheiro: sinal forte de golpe."],
+   ["Foto de um político com a frase “ele disse que não gosta de pobre”. A foto é de outro evento.","Imagem","Foto fora de contexto com legenda inventada."],
+   ["“Cientistas descobriram...” sem dizer quais cientistas nem onde foi publicado.","Fonte","Sem autor e sem estudo, não dá para checar."],
+   ["Título de “última hora”, mas a data da publicação é de três anos atrás.","Data","A data mostra que a notícia não é nova."],
+   ["Só o grupo da família manda essa mensagem. Nenhuma fonte oficial confirma.","Confirmação","Só circular em grupos não prova nada."],
+   ["“Repasse para 10 pessoas ou você terá azar.”","Emoção","Medo e culpa para forçar você a compartilhar."]
+  ],opts:["Fonte","Emoção","Data","Confirmação","Imagem"]},
+ 3:{c:"var(--a3)",tag:"EU · QR 3",title:"Corpo, camisinha e cuidado",
+  intro:"5 perguntas sobre saúde sexual, consentimento e gravidez. Escolha a melhor resposta.",type:"quiz",n:5,
+  talk:"O que você gostaria que alguém tivesse te explicado mais cedo sobre esse assunto?",
+  pool:[
+   {q:"Qual método protege ao mesmo tempo de gravidez e de IST?",o:["Pílula","Camisinha","Tirar antes de terminar","Chá caseiro"],a:1,w:"A camisinha é barreira. A pílula só evita gravidez."},
+   {q:"A pessoa diz: “sem camisinha é melhor, confia em mim”. O que fazer?",o:["Aceitar para não criar clima ruim","Dizer que sem camisinha não vai rolar","Combinar de usar só “dessa vez”","Fingir que não ouviu"],a:1,w:"Confiança não protege de IST nem de gravidez. Você pode dizer não."},
+   {q:"No meio da relação, a pessoa diz “para”. O que acontece?",o:["Continua, se já começou","Para na hora","Continua mais devagar","Pergunta por que depois"],a:1,w:"Consentimento vale o tempo todo. “Não” e “para” significam parar."},
+   {q:"A camisinha acabou. A melhor decisão é:",o:["Fazer sem, só dessa vez","Deixar para outro dia","Usar duas vezes a mesma","Confiar no calendário"],a:1,w:"Sem proteção, o risco existe. Dá para esperar e conversar."},
+   {q:"Onde fazer teste de IST gratuitamente?",o:["Só em clínica particular","No posto de saúde (SUS)","Não existe teste","Só em hospital grande"],a:1,w:"O SUS oferece testes rápidos de graça nos postos de saúde."},
+   {q:"Houve relação sem proteção ontem. O que fazer?",o:["Esperar para ver se algo acontece","Procurar o posto de saúde o quanto antes","Tomar chá","Esconder de todos"],a:1,w:"O SUS oferece pílula do dia seguinte e PEP. Quanto antes, melhor."},
+   {q:"Uma pessoa que bebeu muito pode dar consentimento?",o:["Sim, se não disse não","Não, ela não está em condição de consentir","Sim, se estiver sorrindo","Depende do que os amigos acham"],a:1,w:"Álcool em excesso tira a capacidade de decidir. Sem consentimento, não."},
+   {q:"Dá para reutilizar a camisinha?",o:["Sim, se lavar","Não, uma nova a cada relação","Sim, no mesmo dia","Sim, se ainda estiver inteira"],a:1,w:"Camisinha é de uso único. Use uma nova em cada relação."},
+   {q:"Uma colega descobre que está grávida aos 15 anos. Um bom primeiro passo é:",o:["Zombar para ela aprender","Procurar um adulto de confiança e o posto de saúde","Esconder o máximo possível","Postar nas redes"],a:1,w:"Apoio e pré-natal cedo protegem a saúde dela e do bebê."},
+   {q:"Dá para saber se alguém tem IST só olhando?",o:["Sim, sempre","Não, muitas não dão sintomas","Só em quem é mais velho","Só em quem namora pouco"],a:1,w:"Muitas ISTs não têm sinais. Só o teste mostra."},
+   {q:"O que é uma IST?",o:["Infecção transmitida por contato sexual","Um tipo de gripe","Uma alergia","Uma doença só de adultos"],a:0,w:"IST é infecção sexualmente transmissível. Qualquer pessoa pode ter."},
+   {q:"Uma pessoa disse sim e depois mudou de ideia. O que vale?",o:["O primeiro sim","O novo não","O que o grupo disser","Nenhum dos dois"],a:1,w:"Consentimento pode mudar a qualquer momento."},
+   {q:"Quem pode ajudar com dúvidas sobre sexo e corpo?",o:["Posto de saúde ou um adulto de confiança","Vídeos de perfis anônimos","Só os amigos","Ninguém"],a:0,w:"Profissionais de saúde dão informação segura e sem julgamento."},
+   {q:"Por que conversar com o par antes é importante?",o:["Para combinar limites e proteção","Para ganhar tempo","Não faz diferença","Para testar o outro"],a:0,w:"Conversar evita mal-entendidos e protege os dois."},
+   {q:"Alguém pede uma foto íntima sua. O melhor é:",o:["Mandar se confiar muito","Dizer não e contar a um adulto se a pessoa insistir","Mandar só o rosto","Apagar o aplicativo"],a:1,w:"Uma foto íntima pode ser espalhada. Insistir é pressão, e você pode pedir ajuda."},
+   {q:"Onde conseguir camisinha de graça?",o:["No posto de saúde (SUS)","Só na farmácia","Não existe camisinha grátis","Só dentro da escola"],a:0,w:"O SUS distribui camisinhas gratuitamente nos postos de saúde."},
+   {q:"A pílula do dia seguinte é:",o:["Um método de emergência, que não protege de IST","Um método para usar todo dia","Uma proteção contra IST","Um remédio que só funciona depois de uma semana"],a:0,w:"É para emergências e quanto antes, melhor. Não substitui a camisinha."},
+   {q:"O grupo pressiona você para “ter experiência”. O que fazer?",o:["Fazer para ser aceito","Lembrar que o momento é seu e que você pode esperar","Mentir dizendo que já fez","Se afastar de todo mundo"],a:1,w:"Você decide quando se sente pronto(a). Ninguém precisa provar nada."},
+   {q:"Seu par diz que vai ficar bravo se você disser não. Isso é:",o:["Normal em todo namoro","Sinal de alerta de relação abusiva","Prova de amor","Coisa de adolescente"],a:1,w:"Ameaçar ou pressionar para aceitar um “sim” é um sinal de alerta."},
+   {q:"Quando colocar a camisinha?",o:["Antes de qualquer contato íntimo","Só no final","Depois de começar","Só se a pessoa pedir"],a:0,w:"Antes do contato. Assim a proteção funciona."}
+  ]},
+ 4:{c:"var(--a4)",tag:"ALERTA · QR 4",title:"Quem pode ajudar?",
+  intro:"5 situações. Escolha o canal certo para cada uma.",type:"quiz",n:5,
+  talk:"Você sabia que esses canais existiam? Qual você guardaria no celular?",
+  pool:[
+   {q:"Você está com muita tristeza e quer conversar agora.",o:["CVV: 188","Polícia: 190","SAMU: 192","Disque 100"],a:0,w:"O CVV dá apoio emocional 24 horas, de graça."},
+   {q:"Você viu uma criança ou adolescente sofrendo violência.",o:["CVV: 188","Disque 100","SaferNet","SAMU: 192"],a:1,w:"O Disque 100 recebe denúncias de violações de direitos de crianças e adolescentes."},
+   {q:"Alguém ameaça espalhar uma foto sua na internet.",o:["SaferNet Brasil e um adulto de confiança","SAMU: 192","Ignorar e apagar o perfil","Só esperar passar"],a:0,w:"A SaferNet orienta sobre crimes na internet. Conte a um adulto e guarde as provas."},
+   {q:"Um colega passou mal e está inconsciente.",o:["CVV: 188","SaferNet","SAMU: 192","Conselho Tutelar"],a:2,w:"Emergência de saúde: SAMU, 192."},
+   {q:"Um crime está acontecendo agora e há perigo.",o:["Polícia: 190","CVV: 188","Disque Saúde: 136","Psicologia da escola"],a:0,w:"Perigo imediato: 190."},
+   {q:"Você tem medo de ter pego uma IST.",o:["Posto de saúde (UBS)","SaferNet","Polícia: 190","Esperar passar"],a:0,w:"No posto de saúde há atendimento, testes rápidos e orientação, de graça."},
+   {q:"Você sofre bullying na escola e quer conversar com alguém de lá.",o:["Direção e psicologia da escola","SAMU: 192","Disque 100 só se for grave","Ninguém, é melhor ficar quieto"],a:0,w:"A escola tem o dever de agir. A psicologia acolhe e encaminha."},
+   {q:"A família não protege uma criança que está em risco.",o:["Conselho Tutelar","CVV: 188","SaferNet","Polícia só em caso de roubo"],a:0,w:"O Conselho Tutelar protege os direitos de crianças e adolescentes."},
+   {q:"Você quer denunciar um golpe ou conteúdo criminoso na internet.",o:["SaferNet Brasil","SAMU: 192","CVV: 188","Conselho Tutelar"],a:0,w:"A SaferNet recebe denúncias e orienta sobre crimes na internet."},
+   {q:"Você quer orientação sobre saúde e SUS por telefone.",o:["Disque Saúde: 136","Polícia: 190","SaferNet","Disque 100"],a:0,w:"O Disque Saúde 136 orienta sobre serviços do SUS."},
+   {q:"São 3h da manhã, você está sozinho(a) e muito mal.",o:["CVV: 188","Disque Saúde: 136","Esperar amanhecer","SaferNet"],a:0,w:"O CVV atende 24 horas, de graça."},
+   {q:"Um adulto de fora da família toca em você de um jeito que incomoda.",o:["Contar a um adulto de confiança e ligar 100","Guardar segredo","Esperar passar","Postar nas redes"],a:0,w:"Não é culpa sua. Conte a alguém de confiança. O Disque 100 recebe a denúncia."},
+   {q:"Alguém da sua casa está sendo violento e você corre perigo agora.",o:["Polícia: 190","CVV: 188","SaferNet","Psicologia da escola, na semana que vem"],a:0,w:"Perigo imediato: 190."},
+   {q:"Sua amiga desmaiou e não acorda.",o:["SAMU: 192","CVV: 188","SaferNet","Disque 100"],a:0,w:"Emergência de saúde: SAMU, 192."},
+   {q:"Você quer saber mais sobre os seus direitos de adolescente.",o:["Conselho Tutelar","SAMU: 192","Polícia: 190","SaferNet"],a:0,w:"O Conselho Tutelar orienta e protege os direitos de crianças e adolescentes."},
+   {q:"Você viu um colega sofrendo cyberbullying no grupo da turma.",o:["Contar à direção ou à psicologia da escola","Entrar na brincadeira","SAMU: 192","Ignorar"],a:0,w:"A escola precisa agir. Guarde prints para ajudar."},
+   {q:"Seus pais brigam muito e você está mal com isso.",o:["Psicologia da escola ou um adulto de confiança","SAMU: 192","Polícia: 190","SaferNet"],a:0,w:"Conversar com um adulto de confiança ou com a psicologia ajuda."},
+   {q:"Você quer tomar a pílula do dia seguinte.",o:["Posto de saúde ou pronto atendimento","SaferNet","CVV: 188","Esperar uma semana"],a:0,w:"O SUS oferece de graça, e quanto antes, melhor."},
+   {q:"Seu amigo disse que pensa em se machucar.",o:["Chamar um adulto agora e ligar para o CVV: 188","Guardar o segredo","Mudar de assunto","Postar para ele ver que há quem se importa"],a:0,w:"Não guarde segredo. Pedir ajuda protege seu amigo."},
+   {q:"Houve racismo na escola, com um colega.",o:["Direção da escola e Disque 100","Ignorar, é brincadeira","SAMU: 192","Só postar nas redes"],a:0,w:"Racismo é crime. A escola deve agir, e o Disque 100 recebe denúncias."}
+  ]},
+ 5:{c:"var(--a5)",tag:"PENSAR · QR 5",title:"E se fosse você?",
+  intro:"3 situações. Não existe resposta certa. Escolha o que você faria. Seus recursos sobem ou descem, e o grupo conversa.",type:"story",n:3,
+  talk:"Qual escolha foi mais difícil? O que poderia ser diferente?",
+  pool:[
+   {q:"Um amigo manda o print de uma conversa de outra pessoa, “só pra rir”.",o:[
+     ["Repasso no grupo","Você espalhou algo íntimo de alguém.",{rede:-1,eq:-1}],
+     ["Digo que não curti e não repasso","Você cuidou da outra pessoa e se posicionou.",{eq:1,rede:1}],
+     ["Aviso a pessoa ou um adulto","Você ajudou a proteger alguém.",{rede:1,auto:1}]]},
+   {q:"Véspera de prova. Você está muito ansioso(a).",o:[
+     ["Fico no celular até de madrugada","O sono perdido pesa no dia seguinte.",{bem:-1,eq:-1}],
+     ["Respiro, converso com alguém e durmo","Você se cuidou e pediu apoio.",{bem:1,rede:1}],
+     ["Estudo sem parar a noite toda","Cansaço demais costuma piorar a memória.",{bem:-1,auto:-1}]]},
+   {q:"Chega no grupo uma notícia chocante: “escolas fechadas por 1 mês!”.",o:[
+     ["Compartilho na hora","Você passou adiante algo sem checar.",{auto:-1,rede:-1}],
+     ["Uso as pistas e confiro antes","Você usou o PARE e CHEQUE.",{auto:1,eq:1}],
+     ["Ignoro sem pensar","Nada mudou, mas a corrente segue.",{}]]},
+   {q:"Um amigo conta que não está bem e pede segredo.",o:[
+     ["Guardo e ajudo a procurar um adulto","Você apoiou e levou a ajuda certa.",{rede:1,auto:1}],
+     ["Conto a todos na turma","A confiança dele se quebrou.",{rede:-1,eq:-1}],
+     ["Falo que é frescura","Ele se sente ainda mais sozinho.",{rede:-1,bem:-1}]]},
+   {q:"Seu melhor amigo começou a namorar e some do grupo.",o:[
+     ["Faço ciúmes e brigo","O vínculo ficou mais tenso.",{rede:-1,eq:-1}],
+     ["Converso e combino de nos ver","Você cuidou da amizade.",{rede:1,eq:1}],
+     ["Falo mal dele para os outros","A confiança se abalou.",{rede:-1,auto:-1}]]},
+   {q:"Você foi mal numa prova e se sente um fracasso.",o:[
+     ["Me comparo com todo mundo e me puno","Cobrança demais pesa no bem-estar.",{bem:-1,auto:-1}],
+     ["Conto a alguém e faço um plano","Você pediu apoio e olhou para a solução.",{rede:1,auto:1}],
+     ["Finjo que não ligo e escondo","Guardar tudo sozinho pesa.",{eq:-1}]]},
+   {q:"Marcam você numa foto em que está estranho e todos riem.",o:[
+     ["Rio junto e finjo que não me importo","Você engoliu o que sentiu.",{eq:-1}],
+     ["Peço para tirarem e digo como me senti","Você se posicionou com calma.",{eq:1,auto:1}],
+     ["Revido com uma foto do outro","A situação piorou para os dois.",{rede:-1,eq:-1}]]},
+   {q:"Você viu um colega sendo excluído do grupo.",o:[
+     ["Ignoro, não é comigo","Nada mudou para ele.",{}],
+     ["Chego perto e chamo para conversar","Você criou um vínculo.",{rede:1,eq:1}],
+     ["Faço piada também","Você entrou na exclusão.",{rede:-1,auto:-1}]]},
+   {q:"Um adulto faz um comentário sobre o seu corpo que te incomoda.",o:[
+     ["Fico quieto(a) e guardo","Guardar sozinho(a) pesa.",{bem:-1}],
+     ["Conto a um adulto de confiança","Você buscou proteção.",{rede:1,bem:1}],
+     ["Faço piada para disfarçar","Você escondeu o incômodo.",{eq:-1}]]},
+   {q:"Você passou horas no celular e perdeu o dia.",o:[
+     ["Continuo e deixo para depois","O tempo continua passando.",{bem:-1}],
+     ["Combino um limite e saio para fazer outra coisa","Você retomou o controle.",{bem:1,auto:1}],
+     ["Me culpo e fico mal","A culpa pesa mais que ajuda.",{eq:-1,bem:-1}]]},
+   {q:"Todo mundo vai beber na festa. Você não quer.",o:[
+     ["Bebo para ser aceito","Você foi contra o que queria.",{auto:-1,bem:-1}],
+     ["Digo que não quero e fico mesmo assim","Você manteve sua escolha.",{auto:1,eq:1}],
+     ["Vou embora sem avisar ninguém","Você se protegeu, mas sem apoio.",{rede:-1,bem:1}]]},
+   {q:"Sua família diz algo contrário ao que você pensa sobre um assunto importante.",o:[
+     ["Grito e saio","A conversa acabou ali.",{rede:-1,eq:-1}],
+     ["Escuto e explico meu ponto com calma","Vocês puderam se entender.",{rede:1,auto:1}],
+     ["Concordo só para evitar briga","Você se calou sobre o que pensa.",{auto:-1}]]}
+  ]}
+};
+var RES={eq:"Equilíbrio",rede:"Rede de apoio",auto:"Autoconhecimento",bem:"Bem-estar"};
+
+/* ---------- utilidades ---------- */
+function pickItems(k,d){
+  var key="nexus_seen_"+k,seen=[];
+  try{seen=JSON.parse(localStorage.getItem(key)||"[]")}catch(e){seen=[]}
+  var all=d.pool.map(function(_,i){return i});
+  var fresh=shuffle(all.filter(function(i){return seen.indexOf(i)<0}));
+  var chosen=fresh.slice(0,d.n);
+  if(chosen.length<d.n){
+    seen=[];
+    var rest=shuffle(all.filter(function(i){return chosen.indexOf(i)<0}));
+    chosen=chosen.concat(rest.slice(0,d.n-chosen.length));
+  }
+  try{localStorage.setItem(key,JSON.stringify(seen.concat(chosen)))}catch(e){}
+  return chosen.map(function(i){return d.pool[i]});
+}
+function $(h){var t=document.createElement("template");t.innerHTML=h.trim();return t.content.firstChild}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var app=document.getElementById("app");
+function show(node){app.replaceChildren(node)}
+
+/* ---------- telas ---------- */
+function menu(){
+  var h='<div class="screen" style="display:flex;flex-direction:column;gap:18px"><div class="logo">NEXUS</div><h1>Desafios QR</h1><p class="muted">Cada casa QR CODE do tabuleiro abre um destes desafios. Não precisa de host nem de início de partida. Escolha um para testar.</p><div class="menu">';
+  for(var k=1;k<=5;k++){h+='<a href="#'+k+'" style="--c:'+CH[k].c+'"><b>'+CH[k].tag+'</b><br>'+esc(CH[k].title)+'</a>'}
+  h+='</div></div>';show($(h));
+}
+function intro(k){
+  var d=CH[k];
+  var node=$('<div class="screen" style="display:flex;flex-direction:column;gap:18px;--c:'+d.c+'"><div class="logo">NEXUS</div><span class="tag">'+d.tag+'</span><h1>'+esc(d.title)+'</h1><p>'+esc(d.intro)+'</p><div class="card"><b>Como funciona</b><ol class="steps"><li>Só a pessoa da vez usa o celular.</li><li>Responda sem pressa. Cada tela mostra o porquê.</li><li>No fim, o celular diz quantas casas você anda.</li></ol></div><button class="primary" id="go" style="background:'+d.c+';color:#0E1230">Começar</button><p class="small muted">Você pode dizer PASSO e pular este desafio. Nada é punição.</p></div>');
+  show(node);node.querySelector("#go").onclick=function(){start(k)};
+}
+function start(k){
+  var d=CH[k],items=pickItems(k,d),i=0,score=0,marks=[],eff={};
+  function dots(){var s='<div class="dots">';for(var j=0;j<items.length;j++){s+='<i class="'+(marks[j]===1?"done":marks[j]===0?"miss":j===i?"on":"")+'"></i>'}return s+"</div>"}
+  function draw(){
+    var it=items[i],q,opts,ans;
+    if(d.id===undefined){}
+    var isFmf=Array.isArray(it);
+    if(d.type==="quiz"&&isFmf){q=it[0];opts=d.opts;ans=d.opts.indexOf(it[1])}
+    else if(d.type==="quiz"){q=it.q;var ord=shuffle(it.o.map(function(_,x){return x}));opts=ord.map(function(x){return it.o[x]});ans=ord.indexOf(it.a)}
+    else{q=it.q;opts=it.o.map(function(x){return x[0]});ans=-1}
+    var label=k===1?'Esta frase é:':k===2?'Qual pista entrega o problema?':'';
+    var h='<div class="screen" style="display:flex;flex-direction:column;gap:16px;--c:'+d.c+'">'+dots()+'<span class="tag">'+(i+1)+' de '+items.length+'</span>';
+    h+=(k<=2?'<div class="post">'+esc(q)+'</div><h2>'+label+'</h2>':'<h2>'+esc(q)+'</h2>');
+    h+='<div class="opts">';
+    opts.forEach(function(o,n){h+='<button class="opt" data-n="'+n+'">'+esc(o)+'</button>'});
+    h+='</div><div id="fb"></div></div>';
+    var node=$(h);show(node);
+    node.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){pick(+b.dataset.n,node,it,ans,opts)}});
+  }
+  function next(){i++;if(i>=items.length)end();else draw()}
+  function pick(n,node,it,ans,opts){
+    var btns=node.querySelectorAll(".opt");btns.forEach(function(b){b.disabled=true});
+    var fb=node.querySelector("#fb"),why,good;
+    if(d.type==="quiz"){
+      good=n===ans;btns[ans].classList.add("ok");if(!good)btns[n].classList.add("no");
+      why=Array.isArray(it)?it[2]:it.w;marks[i]=good?1:0;if(good)score++;
+      fb.innerHTML='<div class="fb '+(good?"":"no")+'"><b>'+(good?"Isso mesmo.":"Quase.")+(good?"":" Resposta: "+esc(opts[ans])+".")+'</b>'+esc(why)+'</div>';
+    }else{
+      var c=it.o[n];btns[n].classList.add("ok");marks[i]=1;
+      for(var r in c[2]){eff[r]=(eff[r]||0)+c[2][r]}
+      var chg=Object.keys(c[2]).map(function(r){return '<span class="'+(c[2][r]>0?"up":"down")+'">'+(c[2][r]>0?"▲ ":"▼ ")+RES[r]+'</span>'}).join(" · ");
+      fb.innerHTML='<div class="fb"><b>'+esc(c[1])+'</b>'+(chg||'<span class="muted">Nenhum recurso muda.</span>')+'<br><span class="small muted">Pergunta para o grupo: o que poderia ser diferente?</span></div>';
+    }
+    var nb=$('<button class="primary" style="background:'+d.c+';color:#0E1230;margin-top:12px">'+(i+1>=items.length?"Ver resultado":"Próxima")+'</button>');
+    fb.appendChild(nb);nb.onclick=next;nb.focus();
+  }
+  function end(){
+    var steps,msg;
+    if(d.type==="quiz"){var p=score/items.length;steps=p>=.8?3:p>=.4?2:1;
+      msg=score+" de "+items.length+" certas. "+(steps===3?"Mandou bem.":steps===2?"Bom caminho.":"Você aprendeu coisas novas, e isso conta.");}
+    else{steps=2;msg="Você fez "+items.length+" escolhas."}
+    var h='<div class="screen" style="display:flex;flex-direction:column;gap:16px;--c:'+d.c+'">'+dots()+'<span class="tag">Resultado</span><p>'+esc(msg)+'</p><p class="muted">Ande</p><div class="big">+'+steps+'</div><p class="muted" style="margin-top:-8px">'+(steps===1?"casa":"casas")+' no tabuleiro</p>';
+    if(d.type==="story"){h+='<div class="res">'+Object.keys(RES).map(function(r){var v=eff[r]||0;return '<div><span>'+RES[r]+'</span><span class="'+(v>0?"up":v<0?"down":"muted")+'">'+(v>0?"▲ +"+v:v<0?"▼ "+v:"=")+'</span></div>'}).join("")+'</div><p class="small muted">Ajuste as barras da sua ficha: sobe ou desce 1 por seta.</p>'}
+    else if(steps===3){h+='<div class="card"><b>Bônus</b><span>Suba 1 barra de Autoconhecimento na sua ficha.</span></div>'}
+    h+='<div class="card"><b>Mostre ao grupo e converse</b><span>'+esc(d.talk)+'</span></div><button class="primary" id="again" style="background:'+d.c+';color:#0E1230">Jogar de novo (perguntas novas)</button><button class="ghost" id="back">Voltar ao início</button></div>';
+    var node=$(h);show(node);
+    node.querySelector("#again").onclick=function(){start(k)};
+    node.querySelector("#back").onclick=function(){location.hash="";route()};
+  }
+  draw();
+}
+function route(){
+  var k=parseInt(location.hash.replace("#",""),10);
+  if(k>=1&&k<=5)intro(k);else menu();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);route();
+</script>
+
+</body></html>
