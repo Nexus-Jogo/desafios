@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NEXUS Desafios QR</title>
+<meta name="theme-color" content="#070b1f">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeDI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzRkYTNmZiIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjYjM2YmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmY1ZmIwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwNzBiMWYiLz48Y2lyY2xlIGN4PSIxMCIgY3k9IjExIiByPSIyLjIiIGZpbGw9IiNmZmQyM2YiLz48Y2lyY2xlIGN4PSI1NSIgY3k9IjU0IiByPSIyLjIiIGZpbGw9IiMyZWU2YzUiLz48Y2lyY2xlIGN4PSI1NCIgY3k9IjEwIiByPSIxLjYiIGZpbGw9IiNmZjVmYjAiLz48dGV4dCB4PSIzMiIgeT0iMzkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zLEFyaWFsIEJsYWNrLEFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI4MDAiIGZvbnQtc2l6ZT0iMTYiIGxldHRlci1zcGFjaW5nPSIwLjUiIGZpbGw9InVybCgjZykiPk5FWFVTPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="NEXUS">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="Desafios das casas QR Code do jogo de tabuleiro terapêutico NEXUS.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Identidade NEXUS: azul-noite com grade, neon por área (Poppins + Inter). Abre sempre no escuro; claro é opcional. */
+:root{
+  --bg:#070b1f; --grid:rgba(96,120,255,.07); --card:#0b1233; --line:rgba(130,150,255,.35); --fg:#e8ecff; --muted:#aab6f0;
+  --accent:#b36bff; --on:#070b1f;
+  --good:#2ee6c5; --warn:#ffd23f; --bad:#ff5f7e;
+  --a1:#2ee6c5; --a2:#4d8dff; --a3:#ff5fb0; --a4:#ffd23f; --a5:#b36bff;
+  --glow:1; --disp:"Poppins",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6fc; --grid:rgba(60,80,200,.06); --card:#ffffff; --line:#cfd5ee; --fg:#141a3a; --muted:#4a5278;
+  --accent:#6a3fd6; --on:#ffffff; --good:#0b8f7e; --warn:#9a6d00; --bad:#d6304a;
+  --a1:#0b8f7e; --a2:#2f6fe0; --a3:#c42f7f; --a4:#946a00; --a5:#6a3fd6; --glow:0; color-scheme:light}
+*{box-sizing:border-box}
+html{min-height:100%;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+body{margin:0;background:transparent;
+  color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5;
+  padding-block:max(12px,env(safe-area-inset-top,0px)) 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar{max-width:560px;margin:0 auto 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:.14em;background:linear-gradient(90deg,#4da3ff,#b36bff 55%,#ff5fb0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tool{display:inline-flex;align-items:center;gap:6px;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font:600 14px var(--body);cursor:pointer;min-height:40px}
+.tool svg{width:18px;height:18px;flex:0 0 auto}
+.tool[aria-pressed="true"]{border-color:var(--accent);color:var(--on);background:var(--accent)}
+main{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.screen>.logo{display:none}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,8vw,40px);line-height:1.08;margin:0;text-wrap:balance}
+h2{font-family:var(--disp);font-weight:600;font-size:22px;line-height:1.25;margin:0;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--disp);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c,var(--accent))}
+.tag::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c,var(--accent));box-shadow:0 0 calc(12px * var(--glow)) var(--c,var(--accent))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.steps{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+button,.btn{font:inherit;cursor:pointer}
+.primary{background:var(--c,var(--accent))!important;color:var(--on)!important;border:0;border-radius:14px;padding:16px 20px;font-family:var(--disp);font-weight:700;font-size:18px;width:100%;box-shadow:0 0 calc(18px * var(--glow)) color-mix(in srgb,var(--c,var(--accent)) 45%,transparent)}
+.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-weight:500}
+button:focus-visible,a:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{text-align:left;background:var(--card);color:var(--fg);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;min-height:52px}
+.opt:hover:not(:disabled){border-color:var(--c,var(--accent))}
+.opt.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 18%,var(--card))}
+.opt.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,var(--card))}
+.opt:disabled{cursor:default}
+.dots{display:flex;gap:6px}
+.dots i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.dots i.on{background:var(--c,var(--accent))}
+.dots i.done{background:var(--good)}
+.dots i.miss{background:var(--bad)}
+.post{border:1px dashed var(--line);border-radius:14px;padding:14px;font-size:16px;background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.fb{border-left:4px solid var(--good);padding:10px 14px;background:var(--card);border-radius:0 12px 12px 0}
+.fb.no{border-color:var(--bad)}
+.fb b{display:block;margin-bottom:2px}
+.big{font-family:var(--disp);font-weight:800;font-size:clamp(56px,20vw,96px);line-height:1;color:var(--c,var(--accent));text-shadow:0 0 calc(28px * var(--glow)) color-mix(in srgb,var(--c,var(--accent)) 55%,transparent)}
+.menu{display:grid;gap:10px}
+.menu a{display:block;text-decoration:none;color:var(--fg);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:14px;padding:14px 16px}
+.menu a b{color:var(--c);font-family:var(--disp)}
+.small{font-size:14px}
+.decor{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.decor svg{position:absolute;opacity:.32;filter:drop-shadow(0 0 4px currentColor)}
+:root[data-theme="light"] .decor svg{opacity:.22;filter:none}
+.bar,main{position:relative;z-index:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.screen{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+</style>
+
+</head>
+<body>
+<div class="decor" aria-hidden="true"><svg style="left:4%;top:9%;width:46px;height:46px;transform:rotate(-14deg);color:#ff9a3d" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="26" r="15"></circle><path d="M38 44h24l7 36H31z"></path><ellipse cx="50" cy="84" rx="26" ry="7"></ellipse></svg><svg style="left:86%;top:6%;width:40px;height:40px;transform:rotate(12deg);color:#4da3ff" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="72" height="72" rx="16"></rect><circle cx="34" cy="34" r="5"></circle><circle cx="50" cy="50" r="5"></circle><circle cx="66" cy="66" r="5"></circle></svg><svg style="left:78%;top:30%;width:34px;height:34px;transform:rotate(-8deg);color:#ff5fb0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18h72a6 6 0 0 1 6 6v38a6 6 0 0 1-6 6H48L28 86V68H14a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6z"></path><path d="M50 56c-14-8-16-18-8-22 4-2 8 0 8 4 0-4 4-6 8-4 8 4 6 14-8 22z"></path></svg><svg style="left:2%;top:38%;width:36px;height:36px;transform:rotate(10deg);color:#8f9bff" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 62V50a28 28 0 0 1 56 0v12"></path><rect x="14" y="58" width="16" height="26" rx="7"></rect><rect x="70" y="58" width="16" height="26" rx="7"></rect><rect x="38" y="88" width="30" height="6" rx="3"></rect></svg><svg style="left:90%;top:52%;width:30px;height:30px;transform:rotate(18deg);color:#8f9bff" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 60c-8 0-14 8-12 18s10 10 16 2l6-10h36l6 10c6 8 14 8 16-2s-4-18-12-18z"></path><path d="M34 46v10M29 51h10M66 50h.1M74 54h.1"></path></svg><svg style="left:8%;top:66%;width:42px;height:42px;transform:rotate(-6deg);color:#2ee6c5" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="24" y="14" width="56" height="74" rx="6"></rect><path d="M34 14v74M44 34h26M44 48h26M44 62h18"></path></svg><svg style="left:80%;top:74%;width:44px;height:44px;transform:rotate(8deg);color:#ff5fb0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 70c0-6 4-10 10-10l16-6c4-6 8-14 10-22l8 3c2 8 6 12 14 16l16 6c6 2 10 6 10 12v4H10z"></path><path d="M10 70h90M40 52l8 6M50 46l8 6"></path></svg><svg style="left:46%;top:90%;width:34px;height:34px;transform:rotate(-12deg);color:#5be7ff" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="18" width="40" height="72" rx="10"></rect><rect x="38" y="6" width="24" height="12" rx="4"></rect><path d="M30 40h40M30 62h40"></path></svg><svg style="left:60%;top:14%;width:28px;height:28px;transform:rotate(16deg);color:#3ddc84" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="26" r="15"></circle><path d="M38 44h24l7 36H31z"></path><ellipse cx="50" cy="84" rx="26" ry="7"></ellipse></svg><svg style="left:22%;top:84%;width:34px;height:34px;transform:rotate(14deg);color:#ff5fb0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="72" height="72" rx="16"></rect><circle cx="34" cy="34" r="5"></circle><circle cx="66" cy="34" r="5"></circle><circle cx="34" cy="66" r="5"></circle><circle cx="66" cy="66" r="5"></circle></svg><svg style="left:94%;top:90%;width:30px;height:30px;transform:rotate(-16deg);color:#ffd23f" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="52" r="18"></circle><circle cx="72" cy="52" r="18"></circle><path d="M46 50h8M10 48l-4-8M90 48l4-8"></path></svg><svg style="left:30%;top:22%;width:26px;height:26px;transform:rotate(-20deg);color:#b36bff" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 30c0-10 8-16 20-16s20 6 20 16"></path><rect x="22" y="30" width="56" height="58" rx="14"></rect><path d="M34 56h32M34 72h32M40 30v10M60 30v10"></path><path d="M14 52v24M86 52v24"></path></svg><svg style="left:66%;top:58%;width:26px;height:26px;transform:rotate(6deg);color:#ff5fb0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="22" width="84" height="56" rx="8"></rect><circle cx="34" cy="50" r="10"></circle><circle cx="66" cy="50" r="10"></circle><path d="M34 70h32"></path></svg><svg style="left:14%;top:52%;width:24px;height:24px;transform:rotate(20deg);color:#ffd23f" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="36"></circle><path d="M33 40c3-4 9-4 12 0M55 40c3-4 9-4 12 0M32 58c6 14 30 14 36 0z"></path></svg><svg style="left:52%;top:40%;width:22px;height:22px;transform:rotate(-10deg);color:#ff5fb0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="34"></circle><path d="M32 42h.1M68 42h.1M32 58c6 14 30 14 36 0"></path></svg><svg style="left:36%;top:64%;width:22px;height:22px;transform:rotate(12deg);color:#ff5fb0" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 80V24l30-8v52"></path><circle cx="46" cy="80" r="14"></circle><circle cx="76" cy="68" r="14"></circle></svg><svg style="left:70%;top:94%;width:26px;height:26px;transform:rotate(-4deg);color:#8f9bff" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 80V24l30-8v52"></path><circle cx="46" cy="80" r="14"></circle><circle cx="76" cy="68" r="14"></circle></svg></div>
+<header class="bar">
+<div class="brand" aria-label="NEXUS">NEXUS</div>
+<div class="tools">
+<button class="tool" id="themeBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path id="themeIco" d=""></path></svg><span id="themeLbl">Claro</span></button>
+<button class="tool" id="audioBtn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"></path></svg><span id="audioLbl">Ouvir</span></button>
+</div>
+</header>
+<main id="app" aria-live="polite"></main>
+
+<script>
+/* ---------- tema e audiodescrição ---------- */
+(function(){
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var root=document.documentElement;
+  var mode=get("nexus_theme")==="light"?"light":"dark";
+  function applyTheme(){root.setAttribute("data-theme",mode);
+    var b=document.getElementById("themeBtn");document.getElementById("themeIco").setAttribute("d",mode==="dark"?"M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4":"M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z");document.getElementById("themeLbl").textContent=mode==="dark"?"Claro":"Escuro";
+    b.setAttribute("aria-label",mode==="dark"?"Modo escuro ativo. Toque para usar o modo claro.":"Modo claro ativo. Toque para voltar ao modo escuro.");
+    var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",mode==="dark"?"#070b1f":"#f4f6fc");}
+  document.getElementById("themeBtn").onclick=function(){mode=mode==="dark"?"light":"dark";set("nexus_theme",mode);applyTheme()};
+  applyTheme();
+
+  var synth=window.speechSynthesis, on=get("nexus_audio")==="1", voice=null;
+  var aBtn=document.getElementById("audioBtn");
+  if(!synth){aBtn.hidden=true}
+  function pickVoice(){if(!synth)return;var v=synth.getVoices();voice=v.filter(function(x){return /^pt[-_]BR/i.test(x.lang)})[0]||v.filter(function(x){return /^pt/i.test(x.lang)})[0]||null}
+  if(synth){pickVoice();synth.onvoiceschanged=pickVoice}
+  function say(t){if(!synth||!t)return;synth.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";if(voice)u.voice=voice;u.rate=0.95;synth.speak(u)}
+  function clean(t){return String(t).replace(/\s+/g," ").replace(/\+(\d)/g,"mais $1").replace(/·/g,",").trim()}
+  function screenText(){
+    var app=document.getElementById("app"),parts=[],n=0;
+    app.querySelectorAll(".tag,h1,h2,.post,p,.card,.menu a,.opt,.fb,.big").forEach(function(el){
+      var par=el.parentElement&&el.parentElement.closest(".card,.fb,.post,.menu a");
+      if(par&&app.contains(par))return;
+      var t=clean(el.innerText);if(!t)return;
+      if(el.classList.contains("opt")){n++;t="Opção "+n+": "+t}
+      if(el.classList.contains("post"))t="Publicação: "+t;
+      parts.push(t);
+    });
+    var b=app.querySelector(".primary");if(b&&!b.closest("#fb"))parts.push("Botão: "+clean(b.innerText));
+    return parts.join(". ");
+  }
+  function applyAudio(){aBtn.setAttribute("aria-pressed",on?"true":"false");aBtn.setAttribute("aria-label","Audiodescrição "+(on?"ligada. Toque para desligar":"desligada. Toque para ouvir"));document.getElementById("audioLbl").textContent=on?"Ouvindo":"Ouvir";if(!on&&synth)synth.cancel()}
+  aBtn.onclick=function(){on=!on;set("nexus_audio",on?"1":"0");applyAudio();if(on)say("Audiodescrição ligada. "+screenText())};
+  applyAudio();
+  window.NX={
+    onScreen:function(){if(on)setTimeout(function(){say(screenText())},150)},
+    onFeedback:function(fb){if(on){var f=fb.querySelector(".fb");say(clean(f?f.innerText:"")+". Botão: "+clean(fb.querySelector(".primary").innerText))}}
+  };
+})();
+</script>
+<script>
+/* ---------- conteúdo ---------- */
+var CH = {
+ 1:{c:"var(--a1)",tag:"INVESTIGAR · QR 1",title:"Relâmpago: fato, mito ou fake?",
+  intro:"5 frases. Para cada uma, decida: Fato, Mito ou Fake. Você ganha casas pelos acertos.",type:"quiz",n:5,
+  talk:"Qual frase te surpreendeu? Alguém já passou adiante algo assim sem checar?",
+  pool:[
+   ["Dormir pouco piora o humor e a concentração.","Fato","O sono ajuda o cérebro a regular emoções."],
+   ["Chorar é sinal de fraqueza.","Mito","Chorar é um jeito natural de aliviar emoções fortes."],
+   ["Print sem autor e sem data: “Compartilhe antes que apaguem!”","Fake","Pressa, sem fonte e sem data: três sinais de alerta."],
+   ["Pedir ajuda faz parte de cuidar da saúde mental.","Fato","Pedir ajuda é uma habilidade, não um defeito."],
+   ["Notícia compartilhada por muita gente é sempre verdadeira.","Mito","Fake news se espalham rápido. Quantidade de compartilhamentos não prova nada."],
+   ["Mensagem: “Se alguém mandar este emoji, sua conta é hackeada. Avise 10 contatos!”","Fake","Corrente com medo e pedido de repasse. Confira em fontes confiáveis."],
+   ["Ansiedade é frescura, é só se esforçar.","Mito","Ansiedade é uma resposta real do corpo, e pode ser cuidada com ajuda."],
+   ["Vídeo: “Médico revela chá que cura ansiedade em 1 dia”, sem nome do médico.","Fake","Sem fonte e com promessa boa demais."],
+   ["Divulgar foto íntima de alguém sem permissão é crime.","Fato","No Brasil, divulgar nudez ou cena de sexo sem consentimento é crime."],
+   ["Quem sofre bullying deve ficar quieto para parar.","Mito","Contar a um adulto de confiança é o caminho. O silêncio protege quem agride."],
+   ["Discordar dos adultos faz parte de crescer.","Fato","Na adolescência, questionar ajuda a construir identidade e autonomia."],
+   ["Falar com alguém de confiança sobre o que sentimos alivia o sofrimento.","Fato","Colocar em palavras organiza as emoções."],
+   ["Beber água e se alimentar bem ajuda o corpo e o humor.","Fato","Corpo e emoções andam juntos: cuidar de um ajuda o outro."],
+   ["Quem tem muitos seguidores é mais feliz.","Mito","Seguidores não medem felicidade. Comparar a vida real com o feed costuma gerar frustração."],
+   ["Mensagem: “Ganhe R$ 500 clicando neste link, só hoje!”","Fake","Promessa boa demais, pressa e link suspeito: golpe comum."],
+   ["Todo mundo que usa muito o celular tem vício.","Mito","Uso intenso nem sempre é dependência. O que importa é se está atrapalhando sono, estudo e relações."],
+   ["Sentir vergonha de falar sobre um problema é comum, e ainda assim dá para pedir ajuda.","Fato","Muita gente sente vergonha. Dar o primeiro passo com alguém de confiança ajuda."],
+   ["Print de conversa sem nome e sem data: “professor ofendeu aluna”, repassado em todos os grupos.","Fake","Sem origem, sem data e só em grupos. Não dá para confiar até confirmar."],
+   ["Fazer atividade física melhora o humor e reduz o estresse.","Fato","O movimento ajuda o corpo a regular as emoções."],
+   ["Falar sobre suicídio com alguém que está mal dá ideia a ele.","Mito","Escutar com cuidado ajuda. Se alguém está mal, chame um adulto e o CVV (188)."],
+   ["Quem sofre ciberbullying pode guardar prints e denunciar.","Fato","Guardar provas e contar a um adulto ou à SaferNet ajuda a parar."]
+  ],opts:["Fato","Mito","Fake"]},
+ 2:{c:"var(--a2)",tag:"INVESTIGAR · QR 2",title:"Detetive de pistas",
+  intro:"Veja a publicação e escolha a pista do PARE e CHEQUE que mais entrega o problema. 4 casos.",type:"quiz",n:4,
+  talk:"Qual pista você costuma esquecer de usar? Qual você usaria primeiro na vida real?",
+  pool:[
+   ["“Foto de enchente de HOJE!” A mesma imagem já circulava em 2019.","Data","Foto antiga usada para falar de outro fato."],
+   ["Perfil sem nome, sem foto e criado semana passada diz que uma vacina causa um problema grave.","Fonte","Quem publicou? Perfil anônimo e sem histórico é sinal de alerta."],
+   ["Só circula em correntes de grupo. Nenhum jornal ou órgão de saúde confirmou.","Confirmação","Se fontes confiáveis não falam disso, desconfie."],
+   ["Vídeo de um famoso “pedindo dinheiro”, com voz robótica e boca fora de sincronia.","Imagem","Pode ser vídeo editado ou feito por inteligência artificial."],
+   ["“Se você ama sua família, compartilhe! Vai se arrepender se ignorar.”","Emoção","Feito para dar medo e culpa, para você passar adiante sem pensar."],
+   ["“Vídeo mostra tubarão na praia de hoje!” A cena é de um filme.","Imagem","Imagem tirada de outro contexto. Busque a origem do vídeo."],
+   ["“Remédio milagroso emagrece 10 kg em 1 semana”, vendido por um perfil sem endereço nem nome.","Fonte","Quem está vendendo? Sem identificação, desconfie."],
+   ["“Governo vai cobrar taxa de quem usa celular!” Nenhum site de notícia fala disso.","Confirmação","Nenhuma fonte confiável confirma."],
+   ["Notícia de 2018 sobre uma greve circulando como se fosse de agora.","Data","Notícia antiga apresentada como nova."],
+   ["“Compartilhe agora ou sua conta será apagada!!!”","Emoção","Ameaça e pressa são feitas para você agir sem pensar."],
+   ["Perfil criado hoje, com foto roubada, pede Pix para ajudar uma criança doente.","Fonte","Perfil novo, sem histórico, pedindo dinheiro: sinal forte de golpe."],
+   ["Foto de um político com a frase “ele disse que não gosta de pobre”. A foto é de outro evento.","Imagem","Foto fora de contexto com legenda inventada."],
+   ["“Cientistas descobriram...” sem dizer quais cientistas nem onde foi publicado.","Fonte","Sem autor e sem estudo, não dá para checar."],
+   ["Título de “última hora”, mas a data da publicação é de três anos atrás.","Data","A data mostra que a notícia não é nova."],
+   ["Só o grupo da família manda essa mensagem. Nenhuma fonte oficial confirma.","Confirmação","Só circular em grupos não prova nada."],
+   ["“Repasse para 10 pessoas ou você terá azar.”","Emoção","Medo e culpa para forçar você a compartilhar."]
+  ],opts:["Fonte","Emoção","Data","Confirmação","Imagem"]},
+ 3:{c:"var(--a3)",tag:"EU · QR 3",title:"Corpo, camisinha e cuidado",
+  intro:"5 perguntas sobre saúde sexual, consentimento e gravidez. Escolha a melhor resposta.",type:"quiz",n:5,
+  talk:"O que você gostaria que alguém tivesse te explicado mais cedo sobre esse assunto?",
+  pool:[
+   {q:"Qual método protege ao mesmo tempo de gravidez e de IST?",o:["Pílula","Camisinha","Tirar antes de terminar","Chá caseiro"],a:1,w:"A camisinha é barreira. A pílula só evita gravidez."},
+   {q:"A pessoa diz: “sem camisinha é melhor, confia em mim”. O que fazer?",o:["Aceitar para não criar clima ruim","Dizer que sem camisinha não vai rolar","Combinar de usar só “dessa vez”","Fingir que não ouviu"],a:1,w:"Confiança não protege de IST nem de gravidez. Você pode dizer não."},
+   {q:"No meio da relação, a pessoa diz “para”. O que acontece?",o:["Continua, se já começou","Para na hora","Continua mais devagar","Pergunta por que depois"],a:1,w:"Consentimento vale o tempo todo. “Não” e “para” significam parar."},
+   {q:"A camisinha acabou. A melhor decisão é:",o:["Fazer sem, só dessa vez","Deixar para outro dia","Usar duas vezes a mesma","Confiar no calendário"],a:1,w:"Sem proteção, o risco existe. Dá para esperar e conversar."},
+   {q:"Onde fazer teste de IST gratuitamente?",o:["Só em clínica particular","No posto de saúde (SUS)","Não existe teste","Só em hospital grande"],a:1,w:"O SUS oferece testes rápidos de graça nos postos de saúde."},
+   {q:"Houve relação sem proteção ontem. O que fazer?",o:["Esperar para ver se algo acontece","Procurar o posto de saúde o quanto antes","Tomar chá","Esconder de todos"],a:1,w:"O SUS oferece pílula do dia seguinte e PEP. Quanto antes, melhor."},
+   {q:"Uma pessoa que bebeu muito pode dar consentimento?",o:["Sim, se não disse não","Não, ela não está em condição de consentir","Sim, se estiver sorrindo","Depende do que os amigos acham"],a:1,w:"Álcool em excesso tira a capacidade de decidir. Sem consentimento, não."},
+   {q:"Dá para reutilizar a camisinha?",o:["Sim, se lavar","Não, uma nova a cada relação","Sim, no mesmo dia","Sim, se ainda estiver inteira"],a:1,w:"Camisinha é de uso único. Use uma nova em cada relação."},
+   {q:"Uma colega descobre que está grávida aos 15 anos. Um bom primeiro passo é:",o:["Zombar para ela aprender","Procurar um adulto de confiança e o posto de saúde","Esconder o máximo possível","Postar nas redes"],a:1,w:"Apoio e pré-natal cedo protegem a saúde dela e do bebê."},
+   {q:"Dá para saber se alguém tem IST só olhando?",o:["Sim, sempre","Não, muitas não dão sintomas","Só em quem é mais velho","Só em quem namora pouco"],a:1,w:"Muitas ISTs não têm sinais. Só o teste mostra."},
+   {q:"O que é uma IST?",o:["Infecção transmitida por contato sexual","Um tipo de gripe","Uma alergia","Uma doença só de adultos"],a:0,w:"IST é infecção sexualmente transmissível. Qualquer pessoa pode ter."},
+   {q:"Uma pessoa disse sim e depois mudou de ideia. O que vale?",o:["O primeiro sim","O novo não","O que o grupo disser","Nenhum dos dois"],a:1,w:"Consentimento pode mudar a qualquer momento."},
+   {q:"Quem pode ajudar com dúvidas sobre sexo e corpo?",o:["Posto de saúde ou um adulto de confiança","Vídeos de perfis anônimos","Só os amigos","Ninguém"],a:0,w:"Profissionais de saúde dão informação segura e sem julgamento."},
+   {q:"Por que conversar com o par antes é importante?",o:["Para combinar limites e proteção","Para ganhar tempo","Não faz diferença","Para testar o outro"],a:0,w:"Conversar evita mal-entendidos e protege os dois."},
+   {q:"Alguém pede uma foto íntima sua. O melhor é:",o:["Mandar se confiar muito","Dizer não e contar a um adulto se a pessoa insistir","Mandar só o rosto","Apagar o aplicativo"],a:1,w:"Uma foto íntima pode ser espalhada. Insistir é pressão, e você pode pedir ajuda."},
+   {q:"Onde conseguir camisinha de graça?",o:["No posto de saúde (SUS)","Só na farmácia","Não existe camisinha grátis","Só dentro da escola"],a:0,w:"O SUS distribui camisinhas gratuitamente nos postos de saúde."},
+   {q:"A pílula do dia seguinte é:",o:["Um método de emergência, que não protege de IST","Um método para usar todo dia","Uma proteção contra IST","Um remédio que só funciona depois de uma semana"],a:0,w:"É para emergências e quanto antes, melhor. Não substitui a camisinha."},
+   {q:"O grupo pressiona você para “ter experiência”. O que fazer?",o:["Fazer para ser aceito","Lembrar que o momento é seu e que você pode esperar","Mentir dizendo que já fez","Se afastar de todo mundo"],a:1,w:"Você decide quando se sente pronto(a). Ninguém precisa provar nada."},
+   {q:"Seu par diz que vai ficar bravo se você disser não. Isso é:",o:["Normal em todo namoro","Sinal de alerta de relação abusiva","Prova de amor","Coisa de adolescente"],a:1,w:"Ameaçar ou pressionar para aceitar um “sim” é um sinal de alerta."},
+   {q:"Quando colocar a camisinha?",o:["Antes de qualquer contato íntimo","Só no final","Depois de começar","Só se a pessoa pedir"],a:0,w:"Antes do contato. Assim a proteção funciona."}
+  ]},
+ 4:{c:"var(--a4)",tag:"ALERTA · QR 4",title:"Quem pode ajudar?",
+  intro:"5 situações. Escolha o canal certo para cada uma.",type:"quiz",n:5,
+  talk:"Você sabia que esses canais existiam? Qual você guardaria no celular?",
+  pool:[
+   {q:"Você está com muita tristeza e quer conversar agora.",o:["CVV: 188","Polícia: 190","SAMU: 192","Disque 100"],a:0,w:"O CVV dá apoio emocional 24 horas, de graça."},
+   {q:"Você viu uma criança ou adolescente sofrendo violência.",o:["CVV: 188","Disque 100","SaferNet","SAMU: 192"],a:1,w:"O Disque 100 recebe denúncias de violações de direitos de crianças e adolescentes."},
+   {q:"Alguém ameaça espalhar uma foto sua na internet.",o:["SaferNet Brasil e um adulto de confiança","SAMU: 192","Ignorar e apagar o perfil","Só esperar passar"],a:0,w:"A SaferNet orienta sobre crimes na internet. Conte a um adulto e guarde as provas."},
+   {q:"Um colega passou mal e está inconsciente.",o:["CVV: 188","SaferNet","SAMU: 192","Conselho Tutelar"],a:2,w:"Emergência de saúde: SAMU, 192."},
+   {q:"Um crime está acontecendo agora e há perigo.",o:["Polícia: 190","CVV: 188","Disque Saúde: 136","Psicologia da escola"],a:0,w:"Perigo imediato: 190."},
+   {q:"Você tem medo de ter pego uma IST.",o:["Posto de saúde (UBS)","SaferNet","Polícia: 190","Esperar passar"],a:0,w:"No posto de saúde há atendimento, testes rápidos e orientação, de graça."},
+   {q:"Você sofre bullying na escola e quer conversar com alguém de lá.",o:["Direção e psicologia da escola","SAMU: 192","Disque 100 só se for grave","Ninguém, é melhor ficar quieto"],a:0,w:"A escola tem o dever de agir. A psicologia acolhe e encaminha."},
+   {q:"A família não protege uma criança que está em risco.",o:["Conselho Tutelar","CVV: 188","SaferNet","Polícia só em caso de roubo"],a:0,w:"O Conselho Tutelar protege os direitos de crianças e adolescentes."},
+   {q:"Você quer denunciar um golpe ou conteúdo criminoso na internet.",o:["SaferNet Brasil","SAMU: 192","CVV: 188","Conselho Tutelar"],a:0,w:"A SaferNet recebe denúncias e orienta sobre crimes na internet."},
+   {q:"Você quer orientação sobre saúde e SUS por telefone.",o:["Disque Saúde: 136","Polícia: 190","SaferNet","Disque 100"],a:0,w:"O Disque Saúde 136 orienta sobre serviços do SUS."},
+   {q:"São 3h da manhã, você está sozinho(a) e muito mal.",o:["CVV: 188","Disque Saúde: 136","Esperar amanhecer","SaferNet"],a:0,w:"O CVV atende 24 horas, de graça."},
+   {q:"Um adulto de fora da família toca em você de um jeito que incomoda.",o:["Contar a um adulto de confiança e ligar 100","Guardar segredo","Esperar passar","Postar nas redes"],a:0,w:"Não é culpa sua. Conte a alguém de confiança. O Disque 100 recebe a denúncia."},
+   {q:"Alguém da sua casa está sendo violento e você corre perigo agora.",o:["Polícia: 190","CVV: 188","SaferNet","Psicologia da escola, na semana que vem"],a:0,w:"Perigo imediato: 190."},
+   {q:"Sua amiga desmaiou e não acorda.",o:["SAMU: 192","CVV: 188","SaferNet","Disque 100"],a:0,w:"Emergência de saúde: SAMU, 192."},
+   {q:"Você quer saber mais sobre os seus direitos de adolescente.",o:["Conselho Tutelar","SAMU: 192","Polícia: 190","SaferNet"],a:0,w:"O Conselho Tutelar orienta e protege os direitos de crianças e adolescentes."},
+   {q:"Você viu um colega sofrendo cyberbullying no grupo da turma.",o:["Contar à direção ou à psicologia da escola","Entrar na brincadeira","SAMU: 192","Ignorar"],a:0,w:"A escola precisa agir. Guarde prints para ajudar."},
+   {q:"Seus pais brigam muito e você está mal com isso.",o:["Psicologia da escola ou um adulto de confiança","SAMU: 192","Polícia: 190","SaferNet"],a:0,w:"Conversar com um adulto de confiança ou com a psicologia ajuda."},
+   {q:"Você quer tomar a pílula do dia seguinte.",o:["Posto de saúde ou pronto atendimento","SaferNet","CVV: 188","Esperar uma semana"],a:0,w:"O SUS oferece de graça, e quanto antes, melhor."},
+   {q:"Seu amigo disse que pensa em se machucar.",o:["Chamar um adulto agora e ligar para o CVV: 188","Guardar o segredo","Mudar de assunto","Postar para ele ver que há quem se importa"],a:0,w:"Não guarde segredo. Pedir ajuda protege seu amigo."},
+   {q:"Houve racismo na escola, com um colega.",o:["Direção da escola e Disque 100","Ignorar, é brincadeira","SAMU: 192","Só postar nas redes"],a:0,w:"Racismo é crime. A escola deve agir, e o Disque 100 recebe denúncias."}
+  ]},
+ 5:{c:"var(--a5)",tag:"PENSAR · QR 5",title:"E se fosse você?",
+  intro:"3 situações. Não existe resposta certa. Escolha o que você faria. Depois, o grupo conversa.",type:"story",n:3,
+  talk:"Qual escolha foi mais difícil? O que poderia ser diferente?",
+  pool:[
+   {q:"Um amigo manda o print de uma conversa de outra pessoa, “só pra rir”.",o:[
+     ["Repasso no grupo","Você espalhou algo íntimo de alguém.",{rede:-1,eq:-1}],
+     ["Digo que não curti e não repasso","Você cuidou da outra pessoa e se posicionou.",{eq:1,rede:1}],
+     ["Aviso a pessoa ou um adulto","Você ajudou a proteger alguém.",{rede:1,auto:1}]]},
+   {q:"Véspera de prova. Você está muito ansioso(a).",o:[
+     ["Fico no celular até de madrugada","O sono perdido pesa no dia seguinte.",{bem:-1,eq:-1}],
+     ["Respiro, converso com alguém e durmo","Você se cuidou e pediu apoio.",{bem:1,rede:1}],
+     ["Estudo sem parar a noite toda","Cansaço demais costuma piorar a memória.",{bem:-1,auto:-1}]]},
+   {q:"Chega no grupo uma notícia chocante: “escolas fechadas por 1 mês!”.",o:[
+     ["Compartilho na hora","Você passou adiante algo sem checar.",{auto:-1,rede:-1}],
+     ["Uso as pistas e confiro antes","Você usou o PARE e CHEQUE.",{auto:1,eq:1}],
+     ["Ignoro sem pensar","Nada mudou, mas a corrente segue.",{}]]},
+   {q:"Um amigo conta que não está bem e pede segredo.",o:[
+     ["Guardo e ajudo a procurar um adulto","Você apoiou e levou a ajuda certa.",{rede:1,auto:1}],
+     ["Conto a todos na turma","A confiança dele se quebrou.",{rede:-1,eq:-1}],
+     ["Falo que é frescura","Ele se sente ainda mais sozinho.",{rede:-1,bem:-1}]]},
+   {q:"Seu melhor amigo começou a namorar e some do grupo.",o:[
+     ["Faço ciúmes e brigo","O vínculo ficou mais tenso.",{rede:-1,eq:-1}],
+     ["Converso e combino de nos ver","Você cuidou da amizade.",{rede:1,eq:1}],
+     ["Falo mal dele para os outros","A confiança se abalou.",{rede:-1,auto:-1}]]},
+   {q:"Você foi mal numa prova e se sente um fracasso.",o:[
+     ["Me comparo com todo mundo e me puno","Cobrança demais pesa no bem-estar.",{bem:-1,auto:-1}],
+     ["Conto a alguém e faço um plano","Você pediu apoio e olhou para a solução.",{rede:1,auto:1}],
+     ["Finjo que não ligo e escondo","Guardar tudo sozinho pesa.",{eq:-1}]]},
+   {q:"Marcam você numa foto em que está estranho e todos riem.",o:[
+     ["Rio junto e finjo que não me importo","Você engoliu o que sentiu.",{eq:-1}],
+     ["Peço para tirarem e digo como me senti","Você se posicionou com calma.",{eq:1,auto:1}],
+     ["Revido com uma foto do outro","A situação piorou para os dois.",{rede:-1,eq:-1}]]},
+   {q:"Você viu um colega sendo excluído do grupo.",o:[
+     ["Ignoro, não é comigo","Nada mudou para ele.",{}],
+     ["Chego perto e chamo para conversar","Você criou um vínculo.",{rede:1,eq:1}],
+     ["Faço piada também","Você entrou na exclusão.",{rede:-1,auto:-1}]]},
+   {q:"Um adulto faz um comentário sobre o seu corpo que te incomoda.",o:[
+     ["Fico quieto(a) e guardo","Guardar sozinho(a) pesa.",{bem:-1}],
+     ["Conto a um adulto de confiança","Você buscou proteção.",{rede:1,bem:1}],
+     ["Faço piada para disfarçar","Você escondeu o incômodo.",{eq:-1}]]},
+   {q:"Você passou horas no celular e perdeu o dia.",o:[
+     ["Continuo e deixo para depois","O tempo continua passando.",{bem:-1}],
+     ["Combino um limite e saio para fazer outra coisa","Você retomou o controle.",{bem:1,auto:1}],
+     ["Me culpo e fico mal","A culpa pesa mais que ajuda.",{eq:-1,bem:-1}]]},
+   {q:"Todo mundo vai beber na festa. Você não quer.",o:[
+     ["Bebo para ser aceito","Você foi contra o que queria.",{auto:-1,bem:-1}],
+     ["Digo que não quero e fico mesmo assim","Você manteve sua escolha.",{auto:1,eq:1}],
+     ["Vou embora sem avisar ninguém","Você se protegeu, mas sem apoio.",{rede:-1,bem:1}]]},
+   {q:"Sua família diz algo contrário ao que você pensa sobre um assunto importante.",o:[
+     ["Grito e saio","A conversa acabou ali.",{rede:-1,eq:-1}],
+     ["Escuto e explico meu ponto com calma","Vocês puderam se entender.",{rede:1,auto:1}],
+     ["Concordo só para evitar briga","Você se calou sobre o que pensa.",{auto:-1}]]}
+  ]}
+};
+var RES={eq:"Equilíbrio",rede:"Rede de apoio",auto:"Autoconhecimento",bem:"Bem-estar"};
+
+/* ---------- utilidades ---------- */
+function pickItems(k,d){
+  var key="nexus_seen_"+k,seen=[];
+  try{seen=JSON.parse(localStorage.getItem(key)||"[]")}catch(e){seen=[]}
+  var all=d.pool.map(function(_,i){return i});
+  var fresh=shuffle(all.filter(function(i){return seen.indexOf(i)<0}));
+  var chosen=fresh.slice(0,d.n);
+  if(chosen.length<d.n){
+    seen=[];
+    var rest=shuffle(all.filter(function(i){return chosen.indexOf(i)<0}));
+    chosen=chosen.concat(rest.slice(0,d.n-chosen.length));
+  }
+  try{localStorage.setItem(key,JSON.stringify(seen.concat(chosen)))}catch(e){}
+  return chosen.map(function(i){return d.pool[i]});
+}
+function $(h){var t=document.createElement("template");t.innerHTML=h.trim();return t.content.firstChild}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var app=document.getElementById("app");
+function show(node){app.replaceChildren(node);if(window.NX)NX.onScreen()}
+
+/* ---------- telas ---------- */
+function menu(){
+  var h='<div class="screen" style="display:flex;flex-direction:column;gap:18px"><div class="logo">NEXUS</div><h1>Desafios QR</h1><p class="muted">Cada casa QR CODE do tabuleiro abre um destes desafios. Não precisa de host nem de início de partida. Escolha um para testar.</p><div class="menu">';
+  for(var k=1;k<=5;k++){h+='<a href="#'+k+'" style="--c:'+CH[k].c+'"><b>'+CH[k].tag+'</b><br>'+esc(CH[k].title)+'</a>'}
+  h+='</div></div>';show($(h));
+}
+function intro(k){
+  var d=CH[k];
+  var node=$('<div class="screen" style="display:flex;flex-direction:column;gap:18px;--c:'+d.c+'"><div class="logo">NEXUS</div><span class="tag">'+d.tag+'</span><h1>'+esc(d.title)+'</h1><p>'+esc(d.intro)+'</p><div class="card"><b>Como funciona</b><ol class="steps"><li>Só a pessoa da vez usa o celular.</li><li>Responda sem pressa. Cada tela mostra o porquê.</li><li>No fim, o celular diz quantas casas você anda.</li></ol></div><button class="primary" id="go" >Começar</button><p class="small muted">Você pode dizer PASSO e pular este desafio. Nada é punição.</p></div>');
+  show(node);node.querySelector("#go").onclick=function(){start(k)};
+}
+function start(k){
+  var d=CH[k],items=pickItems(k,d),i=0,score=0,marks=[],eff={};
+  function dots(){var s='<div class="dots">';for(var j=0;j<items.length;j++){s+='<i class="'+(marks[j]===1?"done":marks[j]===0?"miss":j===i?"on":"")+'"></i>'}return s+"</div>"}
+  function draw(){
+    var it=items[i],q,opts,ans;
+    if(d.id===undefined){}
+    var isFmf=Array.isArray(it);
+    if(d.type==="quiz"&&isFmf){q=it[0];opts=d.opts;ans=d.opts.indexOf(it[1])}
+    else if(d.type==="quiz"){q=it.q;var ord=shuffle(it.o.map(function(_,x){return x}));opts=ord.map(function(x){return it.o[x]});ans=ord.indexOf(it.a)}
+    else{q=it.q;opts=it.o.map(function(x){return x[0]});ans=-1}
+    var label=k===1?'Esta frase é:':k===2?'Qual pista entrega o problema?':'';
+    var h='<div class="screen" style="display:flex;flex-direction:column;gap:16px;--c:'+d.c+'">'+dots()+'<span class="tag">'+(i+1)+' de '+items.length+'</span>';
+    h+=(k<=2?'<div class="post">'+esc(q)+'</div><h2>'+label+'</h2>':'<h2>'+esc(q)+'</h2>');
+    h+='<div class="opts">';
+    opts.forEach(function(o,n){h+='<button class="opt" data-n="'+n+'">'+esc(o)+'</button>'});
+    h+='</div><div id="fb"></div></div>';
+    var node=$(h);show(node);
+    node.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){pick(+b.dataset.n,node,it,ans,opts)}});
+  }
+  function next(){i++;if(i>=items.length)end();else draw()}
+  function pick(n,node,it,ans,opts){
+    var btns=node.querySelectorAll(".opt");btns.forEach(function(b){b.disabled=true});
+    var fb=node.querySelector("#fb"),why,good;
+    if(d.type==="quiz"){
+      good=n===ans;btns[ans].classList.add("ok");if(!good)btns[n].classList.add("no");
+      why=Array.isArray(it)?it[2]:it.w;marks[i]=good?1:0;if(good)score++;
+      fb.innerHTML='<div class="fb '+(good?"":"no")+'"><b>'+(good?"Isso mesmo.":"Quase.")+(good?"":" Resposta: "+esc(opts[ans])+".")+'</b>'+esc(why)+'</div>';
+    }else{
+      var c=it.o[n];btns[n].classList.add("ok");marks[i]=1;
+      fb.innerHTML='<div class="fb"><b>'+esc(c[1])+'</b><span class="small muted">Pergunta para o grupo: o que poderia ser diferente?</span></div>';
+    }
+    var nb=$('<button class="primary" style="margin-top:12px">'+(i+1>=items.length?"Ver resultado":"Próxima")+'</button>');
+    fb.appendChild(nb);nb.onclick=next;nb.focus();if(window.NX)NX.onFeedback(fb);
+  }
+  function end(){
+    var steps,msg;
+    if(d.type==="quiz"){var p=score/items.length;steps=p>=.8?3:p>=.4?2:1;
+      msg=score+" de "+items.length+" certas. "+(steps===3?"Mandou bem.":steps===2?"Bom caminho.":"Você aprendeu coisas novas, e isso conta.");}
+    else{steps=2;msg="Você fez "+items.length+" escolhas."}
+    var h='<div class="screen" style="display:flex;flex-direction:column;gap:16px;--c:'+d.c+'">'+dots()+'<span class="tag">Resultado</span><p>'+esc(msg)+'</p><p class="muted">Ande</p><div class="big">+'+steps+'</div><p class="muted" style="margin-top:-8px">'+(steps===1?"casa":"casas")+' no tabuleiro</p>';
+    h+='<div class="card"><b>Mostre ao grupo e converse</b><span>'+esc(d.talk)+'</span></div><button class="primary" id="again" >Jogar de novo (perguntas novas)</button><button class="ghost" id="back">Voltar ao início</button></div>';
+    var node=$(h);show(node);
+    node.querySelector("#again").onclick=function(){start(k)};
+    node.querySelector("#back").onclick=function(){location.hash="";route()};
+  }
+  draw();
+}
+function route(){
+  var k=parseInt(location.hash.replace("#",""),10);
+  if(k>=1&&k<=5)intro(k);else menu();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);route();
+</script>
+
+</body></html>
